@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
+
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const personalInfo = {
     name: "Dawood Waheed",
     title: "Full Stack Developer",
@@ -67,20 +72,21 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 via-indigo-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
-        <div className="absolute top-40 right-10 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-float" style={{animationDelay: '1s'}}></div>
-        <div className="absolute -bottom-8 left-1/2 w-96 h-96 bg-violet-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style={{animationDelay: '1.5s'}}></div>
+        <div className="absolute top-20 left-10 w-64 h-64 sm:w-96 sm:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
+        <div className="absolute top-40 right-10 w-64 h-64 sm:w-96 sm:h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-float" style={{animationDelay: '1s'}}></div>
+        <div className="absolute -bottom-8 left-1/2 w-64 h-64 sm:w-96 sm:h-96 bg-violet-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 right-1/4 w-56 h-56 sm:w-80 sm:h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float" style={{animationDelay: '1.5s'}}></div>
       </div>
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg z-50 border-b border-blue-200/50 dark:border-slate-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
           <div className="flex justify-between items-center">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
-              {personalInfo.name}
+            <h1 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-fade-in">
+              <span className="hidden sm:inline">{personalInfo.name}</span>
+              <span className="sm:hidden">DW</span>
             </h1>
-            <div className="hidden md:flex gap-6">
+            <div className="hidden md:flex gap-4 lg:gap-6">
               <a href="#about" className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 relative group">
                 About
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
@@ -102,33 +108,87 @@ export default function Home() {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 group-hover:w-full transition-all duration-300"></span>
               </a>
             </div>
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Toggle menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden mt-4 pb-4 space-y-2 animate-fade-in-up">
+              <a 
+                href="#about" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                About
+              </a>
+              <a 
+                href="#skills" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                Skills
+              </a>
+              <a 
+                href="#experience" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                Experience
+              </a>
+              <a 
+                href="#projects" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                Projects
+              </a>
+              <a 
+                href="#contact" 
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-lg transition-all duration-300"
+              >
+                Contact
+              </a>
+            </div>
+          )}
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 sm:px-8 relative z-10">
+      <section className="pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-500 flex items-center justify-center text-white text-4xl font-bold shadow-2xl animate-float hover:scale-110 transition-transform duration-300 cursor-pointer">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-4 sm:mb-6 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-500 flex items-center justify-center text-white text-3xl sm:text-4xl font-bold shadow-2xl animate-float hover:scale-110 transition-transform duration-300 cursor-pointer">
               {personalInfo.name.split(" ").map(n => n[0]).join("")}
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4 animate-fade-in-up">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-3 sm:mb-4 px-4 animate-fade-in-up">
               {personalInfo.name}
             </h1>
-            <p className="text-2xl sm:text-3xl text-slate-700 dark:text-slate-300 mb-2 animate-fade-in-up animate-delay-100">
+            <p className="text-xl sm:text-2xl md:text-3xl text-slate-700 dark:text-slate-300 mb-2 animate-fade-in-up animate-delay-100">
               {personalInfo.title}
             </p>
-            <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 animate-fade-in-up animate-delay-200">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 mb-6 sm:mb-8 animate-fade-in-up animate-delay-200">
               📍 {personalInfo.location}
             </p>
-            <p className="max-w-2xl mx-auto text-lg text-slate-700 dark:text-slate-300 leading-relaxed animate-fade-in-up animate-delay-300">
+            <p className="max-w-2xl mx-auto text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed px-4 animate-fade-in-up animate-delay-300">
               {personalInfo.bio}
             </p>
-            <div className="flex gap-4 justify-center mt-8 flex-wrap animate-fade-in-up animate-delay-400">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-6 sm:mt-8 px-4 animate-fade-in-up animate-delay-400">
               <a
                 href="#contact"
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg"
+                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg text-center"
               >
                 Get In Touch
               </a>
@@ -136,7 +196,7 @@ export default function Home() {
                 href={personalInfo.socialLinks.portfolio}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 rounded-lg font-medium hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                className="w-full sm:w-auto px-6 py-3 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 rounded-lg font-medium hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-center"
               >
                 View Work
               </a>
@@ -146,7 +206,7 @@ export default function Home() {
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-3 bg-gradient-to-r from-violet-500 to-indigo-500 text-white rounded-lg font-medium hover:from-violet-400 hover:to-indigo-400 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg flex items-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-violet-500 to-indigo-500 text-white rounded-lg font-medium hover:from-violet-400 hover:to-indigo-400 transition-all duration-300 transform hover:scale-105 hover:shadow-xl shadow-lg flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -160,12 +220,12 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 sm:px-8 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md relative z-10 border-y border-blue-100/50 dark:border-slate-700">
+      <section id="about" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md relative z-10 border-y border-blue-100/50 dark:border-slate-700">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-6 text-center animate-fade-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-6 text-center animate-fade-in-up px-4">
             About Me
           </h2>
-          <div className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-8 space-y-4 animate-fade-in-up animate-delay-100">
+          <div className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8 space-y-4 animate-fade-in-up animate-delay-100 px-4">
             {Array.isArray(personalInfo.about) ? (
               personalInfo.about.map((paragraph, idx) => (
                 <p key={idx} className="animate-fade-in-up" style={{animationDelay: `${(idx + 1) * 0.1}s`}}>{paragraph}</p>
@@ -174,9 +234,9 @@ export default function Home() {
               <p>{personalInfo.about}</p>
             )}
           </div>
-          <div className="grid md:grid-cols-2 gap-8 mt-12">
-            <div className="bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-slate-700/50 dark:to-slate-800/50 p-6 rounded-xl shadow-lg hover:shadow-2xl hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-blue-200/50 dark:border-slate-600 animate-slide-in-left">
-              <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mt-8 sm:mt-12 px-4">
+            <div className="bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-slate-700/50 dark:to-slate-800/50 p-5 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-blue-200/50 dark:border-slate-600 animate-slide-in-left">
+              <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
                 🎓 Education
               </h3>
               {personalInfo.education.map((edu, idx) => (
@@ -190,8 +250,8 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-slate-700/50 dark:to-slate-800/50 p-6 rounded-xl shadow-lg hover:shadow-2xl hover:from-indigo-50 hover:to-violet-50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-indigo-200/50 dark:border-slate-600 animate-slide-in-right">
-              <h3 className="text-xl font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent mb-4">
+            <div className="bg-gradient-to-br from-indigo-100 to-violet-100 dark:from-slate-700/50 dark:to-slate-800/50 p-5 sm:p-6 rounded-xl shadow-lg hover:shadow-2xl hover:from-indigo-50 hover:to-violet-50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-indigo-200/50 dark:border-slate-600 animate-slide-in-right">
+              <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent mb-4">
                 📧 Contact Info
               </h3>
               <p className="text-slate-700 dark:text-slate-300">
@@ -208,12 +268,12 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-6 sm:px-8 relative z-10">
+      <section id="skills" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-12 text-center animate-fade-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-8 sm:mb-12 text-center animate-fade-in-up px-4">
             Skills
           </h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 px-4">
             {personalInfo.skills.map((skill, idx) => (
               <div 
                 key={idx} 
@@ -243,28 +303,28 @@ export default function Home() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 px-6 sm:px-8 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md relative z-10 border-y border-indigo-100/50 dark:border-slate-700">
+      <section id="experience" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md relative z-10 border-y border-indigo-100/50 dark:border-slate-700">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-12 text-center animate-fade-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-8 sm:mb-12 text-center animate-fade-in-up px-4">
             Experience
           </h2>
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8 px-4">
             {personalInfo.experience.map((exp, idx) => (
               <div 
                 key={idx} 
-                className="border-l-4 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-slate-700/30 dark:to-slate-800/30 pl-6 pb-8 last:pb-0 rounded-r-xl p-6 hover:shadow-2xl hover:from-blue-100 hover:to-indigo-100 transition-all duration-300 transform hover:translate-x-2 hover:-translate-y-1 border-t border-r border-b border-blue-100/50 dark:border-slate-700 animate-slide-in-left"
+                className="border-l-4 bg-gradient-to-r from-blue-50/80 to-indigo-50/80 dark:from-slate-700/30 dark:to-slate-800/30 pl-4 sm:pl-6 pb-6 sm:pb-8 last:pb-0 rounded-r-xl p-4 sm:p-6 hover:shadow-2xl hover:from-blue-100 hover:to-indigo-100 transition-all duration-300 transform hover:translate-x-2 hover:-translate-y-1 border-t border-r border-b border-blue-100/50 dark:border-slate-700 animate-slide-in-left"
                 style={{
                   borderLeftColor: idx === 0 ? 'rgb(59, 130, 246)' : 'rgb(99, 102, 241)',
                   animationDelay: `${idx * 0.2}s`
                 }}
               >
-                <h3 className="text-2xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+                <h3 className="text-xl sm:text-2xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-1">
                   {exp.position}
                 </h3>
-                <p className="text-lg bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent dark:text-indigo-400 mb-2 font-medium">
+                <p className="text-base sm:text-lg bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent dark:text-indigo-400 mb-2 font-medium">
                   {exp.company} • {exp.period}
                 </p>
-                <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
                   {exp.description}
                 </p>
               </div>
@@ -274,24 +334,24 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-6 sm:px-8 relative z-10">
+      <section id="projects" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-12 text-center animate-fade-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-8 sm:mb-12 text-center animate-fade-in-up px-4">
             Featured Projects
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4">
             {personalInfo.projects.map((project, idx) => (
               <div
                 key={idx}
-                className="bg-white/70 dark:bg-slate-800/80 backdrop-blur-md rounded-xl shadow-lg p-6 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 border border-blue-200/50 dark:border-slate-700 group hover:bg-white/90 hover:border-indigo-300/50 animate-scale-in"
+                className="bg-white/70 dark:bg-slate-800/80 backdrop-blur-md rounded-xl shadow-lg p-5 sm:p-6 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-2 border border-blue-200/50 dark:border-slate-700 group hover:bg-white/90 hover:border-indigo-300/50 animate-scale-in"
                 style={{animationDelay: `${idx * 0.15}s`}}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/10 group-hover:to-indigo-400/10 rounded-xl transition-all duration-300"></div>
                 <div className="relative z-10">
-                  <h3 className="text-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3 group-hover:from-blue-500 group-hover:to-indigo-500 transition-all duration-300">
+                  <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3 group-hover:from-blue-500 group-hover:to-indigo-500 transition-all duration-300">
                     {project.title}
                   </h3>
-                  <p className="text-slate-700 dark:text-slate-300 mb-4 leading-relaxed">
+                  <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 mb-4 leading-relaxed">
                     {project.description}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -320,20 +380,20 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 sm:px-8 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md relative z-10 border-t border-violet-100/50 dark:border-slate-700">
+      <section id="contact" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md relative z-10 border-t border-violet-100/50 dark:border-slate-700">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-6 animate-fade-in-up">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-4 sm:mb-6 animate-fade-in-up px-4">
             Get In Touch
           </h2>
-          <p className="text-lg text-slate-700 dark:text-slate-300 mb-8 animate-fade-in-up animate-delay-100">
+          <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 mb-6 sm:mb-8 animate-fade-in-up animate-delay-100 px-4">
             I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
           </p>
-          <div className="flex gap-6 justify-center mb-8 animate-fade-in-up animate-delay-200">
+          <div className="flex flex-wrap gap-4 sm:gap-6 justify-center mb-6 sm:mb-8 animate-fade-in-up animate-delay-200 px-4">
             <a
               href={personalInfo.socialLinks.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-14 h-14 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 dark:from-slate-600 dark:to-slate-700 text-white flex items-center justify-center hover:scale-110 hover:rotate-6 hover:from-slate-600 hover:to-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-slate-700 to-slate-800 dark:from-slate-600 dark:to-slate-700 text-white flex items-center justify-center hover:scale-110 hover:rotate-6 hover:from-slate-600 hover:to-slate-700 transition-all duration-300 shadow-lg hover:shadow-xl"
               aria-label="GitHub"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -344,7 +404,7 @@ export default function Home() {
               href={personalInfo.socialLinks.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 text-white flex items-center justify-center hover:scale-110 hover:rotate-6 hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 text-white flex items-center justify-center hover:scale-110 hover:rotate-6 hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl"
               aria-label="LinkedIn"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -356,7 +416,7 @@ export default function Home() {
                 href={personalInfo.socialLinks.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-14 h-14 rounded-full bg-gradient-to-br from-sky-400 to-blue-500 text-white flex items-center justify-center hover:scale-110 hover:rotate-6 hover:from-sky-300 hover:to-blue-400 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-sky-400 to-blue-500 text-white flex items-center justify-center hover:scale-110 hover:rotate-6 hover:from-sky-300 hover:to-blue-400 transition-all duration-300 shadow-lg hover:shadow-xl"
                 aria-label="Twitter"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -365,10 +425,10 @@ export default function Home() {
               </a>
             )}
           </div>
-          <div className="mt-8 flex gap-4 justify-center flex-wrap animate-fade-in-up animate-delay-300">
+          <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4 justify-center flex-wrap animate-fade-in-up animate-delay-300 px-4">
             <a
               href={`mailto:${personalInfo.email}`}
-              className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium hover:from-blue-400 hover:to-indigo-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-block w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-lg font-medium hover:from-blue-400 hover:to-indigo-400 hover:shadow-xl transition-all duration-300 transform hover:scale-105 shadow-lg text-center"
             >
               Send Email
             </a>
@@ -377,9 +437,9 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 sm:px-8 border-t border-blue-200/50 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm relative z-10">
+      <footer className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 border-t border-blue-200/50 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm relative z-10">
         <div className="max-w-7xl mx-auto text-center">
-          <p className="text-slate-600 dark:text-slate-400">
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 px-4">
             © {new Date().getFullYear()} <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-semibold">{personalInfo.name}</span>. All rights reserved.
           </p>
         </div>
