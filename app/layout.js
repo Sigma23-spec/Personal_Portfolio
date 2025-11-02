@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Professional Portfolio",
-  description: "Portfolio website showcasing skills, experience, and projects",
+  title: "Dawood Waheed - Full Stack Developer",
+  description: "Portfolio of Dawood Waheed, Full Stack Developer specializing in modern web technologies, AI automation, and real-time applications. Expertise in Next.js, React, Node.js, and database technologies.",
 };
 
 export default function RootLayout({ children }) {
