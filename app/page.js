@@ -1,25 +1,34 @@
 "use client";
 
 import { useState } from "react";
+import projectsData from "../lib/projects";
+import Link from "next/link";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeScreenshot, setActiveScreenshot] = useState(null);
   const personalInfo = {
     name: "Dawood Waheed",
     title: "Full Stack Developer",
     location: "Rawalpindi, Pakistan",
     email: "dawood.tech@gmail.com",
     phone: "",
-    resume: "/Dawood Waheed.pdf",
-    bio: "Versatile Full Stack Developer specializing in modern web technologies, AI automation, and real-time applications. Passionate about building scalable solutions that combine cutting-edge frameworks with intelligent systems.",
+    resume: "/DawoodWaheed(FullStackCv).pdf",
+    bio: "Versatile Full Stack Developer and Android engineer specializing in modern web technologies, Kotlin mobile development, AI automation, and real-time applications. Passionate about building scalable solutions that combine cutting-edge frameworks with intelligent systems.",
     about: [
-      "I'm a dedicated Full Stack Developer with expertise spanning across modern JavaScript frameworks, database technologies, and AI integration. My passion lies in creating innovative solutions that solve real-world problems through clean, efficient code and intelligent automation.",
-      "I specialize in building full-stack applications with hybrid architectures, implementing real-time communication systems using WebSockets, and integrating AI capabilities including LLM-powered chatbots and automation agents. My experience includes working with various databases (PostgreSQL, MySQL, Firebase, MongoDB) and modern frameworks like Next.js, React, and Node.js.",
-      "Currently, I'm developing enterprise-level Learning Management Systems and AI-powered applications, focusing on scalability, performance, and user experience. I thrive in collaborative environments where I can contribute to impactful projects and continuously expand my technical expertise.",
+      "I'm a versatile Full Stack Developer with strong expertise across Android development, web development, backend systems, and AI integration. I specialize in building end-to-end digital solutions that combine performance, scalability, and intelligent automation.",
+      "On the mobile side, I develop native Android applications using Kotlin along with modern architecture patterns such as MVVM and MVI. I also have experience in cross-platform development using React Native, enabling efficient multi-platform solutions with consistent user experience.",
+      "For web development, I work with modern frontend and backend technologies including React, Next.js, Node.js, and RESTful APIs, building responsive and scalable applications. My backend experience includes working with databases such as PostgreSQL, MySQL, Firebase, and MongoDB, designing efficient data models and secure system architectures.",
+      "I also integrate AI capabilities into applications, including LLM-powered chatbots, automation agents, and intelligent workflows. My work involves combining AI models with real-world applications to enhance user experience and productivity.",
+      "Currently, I am working as an Android Developer in the fintech domain at United Bank Limited (UBL), contributing to enterprise-grade mobile banking solutions focused on performance, security, and scalability.",
+      "At present, I am focused on developing enterprise-level systems such as Learning Management Systems and AI-driven platforms, with a strong emphasis on clean architecture, scalability, and performance optimization. I enjoy working on complex, impactful projects and continuously expanding my expertise across modern technologies."
     ],
     skills: [
       { name: "Next.js", level: 90 },
-      { name: "React", level: 90 },
+      { name: "React", level: 90 }, 
+      { name: "Android / Kotlin", level: 85 },
+       { name: "ReactNative", level: 85 },
+      
       { name: "Node.js", level: 88 },
       { name: "Express.js", level: 85 },
       { name: "JavaScript/TypeScript", level: 90 },
@@ -31,27 +40,19 @@ export default function Home() {
       { name: "MongoDB", level: 80 },
       { name: "RESTful APIs", level: 90 },
     ],
-    projects: [
-      {
-        title: "EduTrack LMS",
-        description: "A comprehensive full-stack Learning Management System designed to streamline digital education for institutes, teachers, and students. Features include real-time collaboration, role-based access control, live messaging, course enrollment, assignment management, and performance tracking. Implemented hybrid database architecture combining Firebase for real-time updates and PostgreSQL for structured storage, ensuring both scalability and data consistency.",
-        tech: ["Next.js", "Node.js", "Express.js", "PostgreSQL", "Firebase", "WebSockets"],
-        link: "https://edutrack-dev.vercel.app/admin/dashboard",
-      },
-    ],
+    projects: projectsData,
     experience: [
-      {
-        company: "HH TECH HUB",
-        position: "Full Stack Developer",
-        period: "Oct 2024 - Present",
-        description: "Developing full-stack applications using modern JavaScript frameworks and technologies. Working on multiple client projects, implementing scalable solutions with focus on performance optimization and user experience. Collaborating with cross-functional teams to deliver high-quality web applications.",
-      },
       {
         company: "Al Shams Tech",
         position: "Full Stack Developer",
         period: "March 2024 - Present",
         description: "Leading development of EduTrack LMS, a comprehensive Learning Management System. Architected and implemented hybrid database solutions combining Firebase and PostgreSQL for optimal performance. Integrated WebSockets for real-time communication, Firebase Cloud Messaging for push notifications, and developed role-based access control systems. Built responsive interfaces for web and mobile platforms, ensuring seamless user experience across all devices.",
       },
+         {
+       company: "O3 Interfaces",
+       position: "Android Developer",
+       period: "Jan 2025 - Present",
+       description: "Developing and maintaining enterprise-grade Android applications for United Bank Limited (UBL). Implementing modern Android solutions using Kotlin, Jetpack Compose, MVVM/MVI architecture, Coroutines, Flow, and Dependency Injection. Collaborating with cross-functional teams to deliver secure, scalable, and high-performance fintech features. Contributing to digital banking solutions, API integrations, state management, performance optimization, and code quality improvements while following industry best practices and banking security standards."    },
     ],
     education: [
       {
@@ -70,6 +71,28 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 via-indigo-50 to-violet-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 relative overflow-hidden">
+      {activeScreenshot && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4">
+          <div className="relative w-full max-w-4xl rounded-3xl overflow-hidden bg-slate-900 shadow-2xl ring-1 ring-white/10">
+            <button
+              type="button"
+              onClick={() => setActiveScreenshot(null)}
+              className="absolute top-4 right-4 z-10 inline-flex items-center justify-center rounded-full bg-slate-900/90 p-2 text-slate-200 shadow-lg shadow-black/20 transition hover:bg-slate-800"
+            >
+              <span className="sr-only">Close screenshot</span>
+              ✕
+            </button>
+            <img
+              src={activeScreenshot.src}
+              alt={activeScreenshot.alt}
+              className="w-full max-h-[80vh] object-contain bg-slate-950"
+            />
+            <div className="border-t border-slate-800 px-6 py-4 bg-slate-950 text-slate-200 text-sm">
+              {activeScreenshot.title}
+            </div>
+          </div>
+        </div>
+      )}
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-64 h-64 sm:w-96 sm:h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
@@ -193,9 +216,7 @@ export default function Home() {
                 Get In Touch
               </a>
               <a
-                href={personalInfo.socialLinks.portfolio}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#projects"
                 className="w-full sm:w-auto px-6 py-3 border-2 border-indigo-500 text-indigo-600 dark:text-indigo-400 rounded-lg font-medium hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-500 dark:hover:text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-center"
               >
                 View Work
@@ -225,7 +246,7 @@ export default function Home() {
           <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-6 text-center animate-fade-in-up px-4">
             About Me
           </h2>
-          <div className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8 space-y-4 animate-fade-in-up animate-delay-100 px-4">
+          <div className="max-w-3xl mx-auto text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed mb-6 sm:mb-8 space-y-5 animate-fade-in-up animate-delay-100 text-justify px-4">
             {Array.isArray(personalInfo.about) ? (
               personalInfo.about.map((paragraph, idx) => (
                 <p key={idx} className="animate-fade-in-up" style={{animationDelay: `${(idx + 1) * 0.1}s`}}>{paragraph}</p>
@@ -336,9 +357,10 @@ export default function Home() {
       {/* Projects Section */}
       <section id="projects" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-8 sm:mb-12 text-center animate-fade-in-up px-4">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-4 sm:mb-6 text-center animate-fade-in-up px-4">
             Featured Projects
           </h2>
+          
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-4">
             {personalInfo.projects.map((project, idx) => (
               <div
@@ -349,7 +371,7 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-400/0 to-indigo-400/0 group-hover:from-blue-400/10 group-hover:to-indigo-400/10 rounded-xl transition-all duration-300"></div>
                 <div className="relative z-10">
                   <h3 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3 group-hover:from-blue-500 group-hover:to-indigo-500 transition-all duration-300">
-                    {project.title}
+                    <Link href={`/projects/${project.slug}`} className="hover:underline">{project.title}</Link>
                   </h3>
                   <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 mb-4 leading-relaxed">
                     {project.description}
@@ -364,14 +386,31 @@ export default function Home() {
                       </span>
                     ))}
                   </div>
-                  <a
-                    href={project.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 inline-flex items-center gap-2 group-hover:gap-3"
-                  >
-                    View Project →
-                  </a>
+                  <div className="flex items-center gap-3">
+                    {project.link ? (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 dark:text-blue-400 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 inline-flex items-center gap-2 group-hover:gap-3"
+                      >
+                        View Project →
+                      </a>
+                    ) : project.prototype ? (
+                      <a
+                        href={project.prototype}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 dark:text-blue-400 font-medium hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 inline-flex items-center gap-2"
+                      >
+                        View prototype →
+                      </a>
+                    ) : (
+                      <span className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 text-sm font-semibold">
+                        Prototype coming soon
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
